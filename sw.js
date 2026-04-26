@@ -1,5 +1,12 @@
-const CACHE = 'spare-v1';
-const ASSETS = ['/', '/index.html', '/manifest.json', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/icon-180.png'];
+const CACHE = 'spare-v2';
+const ASSETS = [
+  '/spare-finder/',
+  '/spare-finder/index.html',
+  '/spare-finder/manifest.json',
+  '/spare-finder/icons/icon-192.png',
+  '/spare-finder/icons/icon-512.png',
+  '/spare-finder/icons/icon-180.png'
+];
 
 self.addEventListener('install', e => {
   e.waitUntil(
@@ -17,6 +24,6 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   e.respondWith(
-    caches.match(e.request).then(cached => cached || fetch(e.request).catch(() => caches.match('/index.html')))
+    caches.match(e.request).then(cached => cached || fetch(e.request).catch(() => caches.match('/spare-finder/index.html')))
   );
 });
