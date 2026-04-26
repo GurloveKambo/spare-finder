@@ -412,7 +412,10 @@ function addData() {
     if (!line) continue;
     var u = line.toUpperCase();
 
-    if (line.indexOf("=") === -1) {
+    var hasDash = / - /.test(line);
+    var hasEq   = line.indexOf("=") > -1;
+
+    if (!hasDash && !hasEq) {
       if      (u.indexOf("INCELL") > -1) currentType = "INCELL";
       else if (u.indexOf("OLED")   > -1) currentType = "OLED";
       else if (u.indexOf("GX")     > -1) currentType = "GX";
@@ -429,9 +432,17 @@ function addData() {
       }
       continue;
     }
-    var parts = line.split("=");
-    var price = parts.pop().trim();
-    var model = parts.join("=").trim();
+    var model, price;
+    if (hasEq) {
+      var parts = line.split("=");
+      price = parts.pop().trim();
+      model = parts.join("=").trim();
+    } else {
+      // Split on last ' - ' to handle models like "E5 / G6play - 55.0"
+      var idx = line.lastIndexOf(" - ");
+      model = line.substring(0, idx).trim();
+      price = line.substring(idx + 3).trim();
+    }
     if (model && price) {
       db.push({ brand: currentBrand, model: model, price: price,
                 type: currentType, supplier: supplier, date: date });
