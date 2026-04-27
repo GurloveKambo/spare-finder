@@ -28,7 +28,7 @@ Go to https://github.com and sign up if you don't have an account.
 
 ### Step 5 — Your app URL
 Your app will be live at:
-`https://YOUR-USERNAME.github.io/spare-finder/`
+`https://gurlovekambo.github.io/spare-finder/`
 
 Open that URL on your iPhone in Safari → tap **Share** → **Add to Home Screen** ✓
 
