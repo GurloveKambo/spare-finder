@@ -11,50 +11,41 @@
 <meta name="apple-mobile-web-app-title" content="Spare Finder">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 <meta name="theme-color" content="#080b14">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
 <style>
-:root {
-  --bg:#080b14; --s1:#0e1220; --s2:#141928; --s3:#1c2235;
-  --border:#232b42; --border2:#2d3856;
-  --accent:#4f7cff; --accent2:#00e5b0; --gold:#ffd166;
-  --danger:#ff4f6b; --warn:#ff9f43;
-  --text:#e2e8f8; --muted:#6b7a99; --muted2:#4a5568;
-  --INCELL:#4f7cff; --OLED:#00c896; --GX:#ffd166; --OG:#ff6b6b; --AAA:#c084fc; --TFT:#64748b;
-  --safe-top:env(safe-area-inset-top,0px); --safe-bot:env(safe-area-inset-bottom,0px);
+:root{
+  --bg:#080b14;--s1:#0e1220;--s2:#141928;--s3:#1c2235;
+  --border:#232b42;--border2:#2d3856;
+  --accent:#4f7cff;--accent2:#00e5b0;
+  --danger:#ff4f6b;--warn:#ff9f43;
+  --text:#e2e8f8;--muted:#6b7a99;--muted2:#4a5568;
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bot:env(safe-area-inset-bottom,0px);
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body,#root{height:100%}
 body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--text);overscroll-behavior:none;-webkit-font-smoothing:antialiased}
-::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
-
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-@keyframes slideIn{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:translateX(0)}}
-@keyframes modalIn{from{opacity:0;transform:scale(.94) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
-@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(14px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
-@keyframes toastOut{from{opacity:1;transform:translateX(-50%) translateY(0)}to{opacity:0;transform:translateX(-50%) translateY(14px)}}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideIn{from{opacity:0;transform:translateX(-5px)}to{opacity:1;transform:translateX(0)}}
+@keyframes modalIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(12px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+@keyframes toastOut{from{opacity:1;transform:translateX(-50%) translateY(0)}to{opacity:0;transform:translateX(-50%) translateY(12px)}}
 
 .app{display:flex;flex-direction:column;height:100dvh;padding-top:var(–safe-top)}
-
-/* Header */
-.hdr{flex-shrink:0;height:56px;background:var(–s1);border-bottom:1px solid var(–border);display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:50}
+.hdr{flex-shrink:0;height:56px;background:var(–s1);border-bottom:1px solid var(–border);display:flex;align-items:center;justify-content:space-between;padding:0 16px}
 .hdr-logo{font-family:‘JetBrains Mono’,monospace;font-size:15px;font-weight:600;letter-spacing:.12em;color:var(–accent2)}
 .hdr-logo span{color:var(–accent)}
 .hdr-pill{font-family:‘JetBrains Mono’,monospace;font-size:11px;color:var(–accent2);background:rgba(0,229,176,.08);border:1px solid rgba(0,229,176,.2);padding:3px 10px;border-radius:20px}
-
-/* Tabs */
 .tabs{flex-shrink:0;display:flex;background:var(–s1);border-bottom:1px solid var(–border)}
 .tab{flex:1;padding:11px 0;text-align:center;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(–muted);background:none;border:none;cursor:pointer;position:relative;transition:color .2s}
 .tab.on{color:var(–accent)}
 .tab.on::after{content:’’;position:absolute;bottom:0;left:25%;right:25%;height:2px;background:var(–accent);border-radius:2px}
-
-/* Panels */
 .panel{flex:1;overflow:hidden;display:none;flex-direction:column}
 .panel.on{display:flex}
 
-/* Add panel */
 .add-scroll{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px;padding-bottom:calc(var(–safe-bot) + 16px)}
 .fg{background:var(–s1);border:1px solid var(–border);border-radius:12px;padding:12px;transition:border-color .2s,box-shadow .2s}
 .fg:focus-within{border-color:var(–accent);box-shadow:0 0 0 3px rgba(79,124,255,.1)}
@@ -63,20 +54,16 @@ body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--tex
 .fi::placeholder{color:var(–muted2)}
 textarea.fi{height:150px;resize:none;line-height:1.6}
 
-/* Buttons */
 .btn{width:100%;padding:14px;border:none;border-radius:12px;cursor:pointer;font-family:‘Space Grotesk’,sans-serif;font-size:14px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;transition:transform .1s,opacity .15s;-webkit-user-select:none}
 .btn:active{transform:scale(.97);opacity:.85}
 .bp{background:var(–accent);color:#fff;box-shadow:0 4px 20px rgba(79,124,255,.3)}
-.bg{background:transparent;color:var(–accent2);border:1px solid rgba(0,229,176,.3)}
+.bg2{background:transparent;color:var(–accent2);border:1px solid rgba(0,229,176,.3)}
 .bb{background:transparent;color:var(–accent);border:1px solid rgba(79,124,255,.3)}
 .br{background:transparent;color:var(–danger);border:1px solid rgba(255,79,107,.3)}
 .brow{display:flex;gap:8px}
 .brow .btn{flex:1;padding:12px 8px;font-size:12px}
+.dup{background:rgba(255,159,67,.08);border:1px solid rgba(255,159,67,.3);border-radius:10px;padding:10px 14px;font-size:12px;color:var(–warn);display:flex;gap:8px;line-height:1.5}
 
-/* Dup warning */
-.dup{background:rgba(255,159,67,.08);border:1px solid rgba(255,159,67,.3);border-radius:10px;padding:10px 14px;font-size:12px;color:var(–warn);display:flex;gap:8px;align-items:flex-start;line-height:1.5}
-
-/* Search panel */
 .sh{flex-shrink:0;padding:10px 12px 0;display:flex;flex-direction:column;gap:8px}
 .sbox{display:flex;align-items:center;gap:10px;background:var(–s1);border:1px solid var(–border);border-radius:12px;padding:11px 14px;transition:border-color .2s}
 .sbox:focus-within{border-color:var(–accent)}
@@ -85,19 +72,16 @@ textarea.fi{height:150px;resize:none;line-height:1.6}
 .fbar{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch}
 .fbar::-webkit-scrollbar{display:none}
 .chip{flex-shrink:0;padding:5px 12px;border-radius:20px;border:1px solid var(–border2);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(–muted);background:var(–s2);cursor:pointer;transition:all .15s;white-space:nowrap}
-.chip.on{color:#fff;border-color:transparent}
-
 .smeta{display:flex;align-items:center;justify-content:space-between;padding:6px 14px 4px}
 .scount{font-family:‘JetBrains Mono’,monospace;font-size:11px;color:var(–muted)}
 .ssel{background:var(–s2);border:1px solid var(–border);border-radius:6px;color:var(–text);font-family:‘Space Grotesk’,sans-serif;font-size:11px;font-weight:600;padding:4px 8px;outline:none;cursor:pointer}
 .cbtn{background:var(–s2);color:var(–muted);border:1px solid var(–border2);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s}
 .cbtn.on{background:var(–accent);color:#fff;border-color:var(–accent)}
-
 .lw{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 
-/* Cards */
-.card{display:flex;align-items:center;padding:11px 14px;border-bottom:1px solid var(–border);background:var(–bg);position:relative;overflow:hidden;transition:background .15s;animation:slideIn .18s ease both}
+.card{display:flex;align-items:center;padding:11px 14px;border-bottom:1px solid var(–border);background:var(–bg);animation:slideIn .18s ease both}
 .card:active{background:var(–s2)}
+.card.sel{background:rgba(79,124,255,.08);border-left:3px solid var(–accent)}
 .cl{flex:1;min-width:0}
 .cbrand{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(–muted);margin-bottom:2px}
 .cmodel{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:4px}
@@ -108,55 +92,47 @@ textarea.fi{height:150px;resize:none;line-height:1.6}
 .cr{flex-shrink:0;text-align:right;margin-left:10px}
 .cprice{font-family:‘JetBrains Mono’,monospace;font-size:17px;font-weight:600;color:var(–accent2)}
 .cacts{display:flex;gap:5px;margin-top:6px;justify-content:flex-end}
-.cab{padding:4px 10px;border-radius:6px;border:none;cursor:pointer;font-size:11px;font-weight:600;font-family:‘Space Grotesk’,sans-serif;transition:opacity .15s}
-.cab:active{opacity:.7}
+.cab{padding:4px 10px;border-radius:6px;border:none;cursor:pointer;font-size:11px;font-weight:600;font-family:‘Space Grotesk’,sans-serif}
 .ce{background:rgba(79,124,255,.15);color:var(–accent)}
 .cd{background:rgba(255,79,107,.15);color:var(–danger)}
 .ch{background:rgba(0,229,176,.12);color:var(–accent2)}
 
-/* Compare bar */
 .cmpbar{position:fixed;bottom:calc(var(–safe-bot) + 12px);left:12px;right:12px;background:var(–s3);border:1px solid var(–accent);border-radius:14px;padding:12px 16px;z-index:80;display:flex;align-items:center;justify-content:space-between;box-shadow:0 8px 32px rgba(0,0,0,.5);animation:fadeUp .2s ease both}
 .cmpbar-t{font-size:13px;font-weight:600}
 .cmpbar-t span{color:var(–accent)}
 .cmpbar-b{background:var(–accent);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer}
 
-/* Empty */
 .empty{padding:60px 20px;text-align:center;color:var(–muted)}
 .ei{font-size:44px;margin-bottom:14px}
 .et{font-size:17px;font-weight:700;color:var(–text);margin-bottom:6px}
 .es{font-size:13px;line-height:1.6}
 
-/* Modal */
 .mo{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:flex;align-items:flex-end;justify-content:center;padding-bottom:var(–safe-bot);backdrop-filter:blur(4px)}
 .md{background:var(–s1);border:1px solid var(–border2);border-radius:20px 20px 0 0;padding:20px 16px;width:100%;max-width:520px;max-height:90dvh;overflow-y:auto;animation:modalIn .25s ease both}
 .mhandle{width:40px;height:4px;background:var(–border2);border-radius:2px;margin:0 auto 16px}
 .mtitle{font-size:17px;font-weight:700;margin-bottom:16px}
-.msub{font-size:12px;color:var(–muted);margin-bottom:16px;font-weight:500;letter-spacing:.04em}
+.msub{font-size:12px;color:var(–muted);margin-bottom:16px}
 
-/* History */
 .hl{display:flex;flex-direction:column;gap:8px}
 .hi{display:flex;align-items:center;justify-content:space-between;background:var(–s2);border-radius:10px;padding:10px 14px;border:1px solid var(–border)}
 .hprice{font-family:‘JetBrains Mono’,monospace;font-size:16px;font-weight:600;color:var(–accent2)}
 .hdiff{font-size:11px;font-weight:700;font-family:‘JetBrains Mono’,monospace}
 .du{color:var(–danger)}.dd{color:var(–accent2)}.ds{color:var(–muted)}
 
-/* Compare modal */
 .cg{margin-bottom:16px}
-.cgt{font-size:13px;font-weight:700;color:var(–text);margin-bottom:8px;padding:6px 0;border-bottom:1px solid var(–border)}
+.cgt{font-size:13px;font-weight:700;margin-bottom:8px;padding:6px 0;border-bottom:1px solid var(–border)}
 .crow{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:8px;margin-bottom:4px;background:var(–s2)}
 .crow.best{background:rgba(0,229,176,.08);border:1px solid rgba(0,229,176,.2)}
-.crow.best .crow-price{color:var(–accent2)}
 .crow-sup{font-size:13px;font-weight:500}
 .crow-price{font-family:‘JetBrains Mono’,monospace;font-size:15px;font-weight:600}
+.crow.best .crow-price{color:var(–accent2)}
 .btag{font-size:10px;font-weight:700;color:var(–accent2);background:rgba(0,229,176,.1);padding:2px 6px;border-radius:4px}
 
-/* Edit modal */
 .ef{margin-bottom:12px}
 .el{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(–muted);margin-bottom:5px}
-.ei2{width:100%;background:var(–s2);border:1px solid var(–border);border-radius:8px;padding:10px 12px;color:var(–text);font-family:‘Space Grotesk’,sans-serif;font-size:15px;outline:none;transition:border-color .2s}
+.ei2{width:100%;background:var(–s2);border:1px solid var(–border);border-radius:8px;padding:10px 12px;color:var(–text);font-family:‘Space Grotesk’,sans-serif;font-size:15px;outline:none}
 .ei2:focus{border-color:var(–accent)}
 
-/* Confirm */
 .cov{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:300;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
 .cbox{background:var(–s1);border:1px solid var(–border2);border-radius:16px;padding:22px;width:100%;max-width:320px;animation:modalIn .2s ease both}
 .ctitle{font-size:16px;font-weight:700;margin-bottom:8px}
@@ -164,8 +140,7 @@ textarea.fi{height:150px;resize:none;line-height:1.6}
 .cbtns{display:flex;gap:8px}
 .cbtns .btn{flex:1;padding:12px}
 
-/* Toast */
-.toast{position:fixed;bottom:calc(var(–safe-bot) + 20px);left:50%;transform:translateX(-50%);background:var(–s3);border:1px solid var(–border2);color:var(–text);padding:10px 20px;border-radius:24px;font-size:13px;font-weight:500;white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,.5);z-index:500;pointer-events:none}
+.toast{position:fixed;bottom:calc(var(–safe-bot) + 20px);left:50%;background:var(–s3);border:1px solid var(–border2);color:var(–text);padding:10px 20px;border-radius:24px;font-size:13px;font-weight:500;white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,.5);z-index:500;pointer-events:none}
 .toast.in{animation:toastIn .25s ease both}
 .toast.out{animation:toastOut .25s ease both}
 </style>
@@ -173,430 +148,447 @@ textarea.fi{height:150px;resize:none;line-height:1.6}
 </head>
 <body>
 <div id="root"></div>
-<script type="text/babel">
-const { useState, useEffect, useRef, useCallback, useMemo } = React;
+<script>
+'use strict';
+var h = React.createElement;
 
-const TYPE_COLORS = { INCELL:’#4f7cff’, OLED:’#00c896’, GX:’#ffd166’, OG:’#ff6b6b’, AAA:’#c084fc’, TFT:’#64748b’ };
-const TYPES = [‘ALL’,‘INCELL’,‘OLED’,‘GX’,‘OG’,‘AAA’,‘TFT’];
-const BRANDS = [‘SAMSUNG’,‘IPHONE’,‘REDMI’,’MI ’,‘VIVO’,‘OPPO’,‘REALME’,‘NOKIA’,‘MOTO’,‘PIXEL’,‘ONEPLUS’];
+// ── Constants ──
+var TYPE_COLORS = {INCELL:’#4f7cff’,OLED:’#00c896’,GX:’#ffd166’,OG:’#ff6b6b’,AAA:’#c084fc’,TFT:’#64748b’};
+var TYPES = [‘ALL’,‘INCELL’,‘OLED’,‘GX’,‘OG’,‘AAA’,‘TFT’];
+var BRANDS = [‘SAMSUNG’,‘IPHONE’,‘REDMI’,’MI ’,‘VIVO’,‘OPPO’,‘REALME’,‘NOKIA’,‘MOTO’,‘PIXEL’,‘ONEPLUS’];
 
-function loadDB() { try { return JSON.parse(localStorage.getItem(‘spareDB2’)||’[]’); } catch { return []; } }
-function saveDB(db) { try { localStorage.setItem(‘spareDB2’,JSON.stringify(db)); return true; } catch { return false; } }
+// ── Storage ──
+function loadDB(){try{return JSON.parse(localStorage.getItem(‘spareDB2’)||’[]’);}catch(e){return[];}}
+function saveDB(db){try{localStorage.setItem(‘spareDB2’,JSON.stringify(db));return true;}catch(e){return false;}}
 
-function parseList(text, supplier, date) {
-let brand=’-’, type=’-’;
-const items=[], lines=text.split(’\n’);
-for (const raw of lines) {
-const line=raw.trim(); if (!line) continue;
-const u=line.toUpperCase();
-const hasDash=/ - /.test(line), hasEq=line.includes(’=’);
-if (!hasDash && !hasEq) {
-if      (u.includes(‘INCELL’)) type=‘INCELL’;
-else if (u.includes(‘OLED’))   type=‘OLED’;
-else if (u.includes(‘GX’))     type=‘GX’;
-else if (u.includes(‘OG’))     type=‘OG’;
-else if (u.includes(‘AAA’))    type=‘AAA’;
-else if (u.includes(‘TFT’))    type=‘TFT’;
-if (BRANDS.some(b=>u.includes(b))) brand=line.replace(/[^A-Za-z ]/g,’’).trim();
+// ── Parse ──
+function parseList(text,supplier,date){
+var brand=’-’,type=’-’,items=[],lines=text.split(’\n’);
+for(var i=0;i<lines.length;i++){
+var line=lines[i].trim(); if(!line) continue;
+var u=line.toUpperCase();
+var hasDash=/ - /.test(line), hasEq=line.indexOf(’=’)>-1;
+if(!hasDash&&!hasEq){
+if(u.indexOf(‘INCELL’)>-1) type=‘INCELL’;
+else if(u.indexOf(‘OLED’)>-1) type=‘OLED’;
+else if(u.indexOf(‘GX’)>-1) type=‘GX’;
+else if(u.indexOf(‘OG’)>-1) type=‘OG’;
+else if(u.indexOf(‘AAA’)>-1) type=‘AAA’;
+else if(u.indexOf(‘TFT’)>-1) type=‘TFT’;
+var isBrand=false;
+for(var b=0;b<BRANDS.length;b++){if(u.indexOf(BRANDS[b])>-1){isBrand=true;break;}}
+if(isBrand) brand=line.replace(/[^A-Za-z ]/g,’’).trim();
 continue;
 }
-let model,price;
-if (hasEq) { const p=line.split(’=’); price=p.pop().trim(); model=p.join(’=’).trim(); }
-else { const i=line.lastIndexOf(’ - ’); model=line.substring(0,i).trim(); price=line.substring(i+3).trim(); }
-if (model&&price) items.push({id:Date.now()+Math.random(),brand,model,price,type,supplier,date});
+var model,price;
+if(hasEq){var p=line.split(’=’);price=p.pop().trim();model=p.join(’=’).trim();}
+else{var idx=line.lastIndexOf(’ - ’);model=line.substring(0,idx).trim();price=line.substring(idx+3).trim();}
+if(model&&price) items.push({id:Date.now()+Math.random(),brand:brand,model:model,price:price,type:type,supplier:supplier,date:date});
 }
 return items;
 }
 
-function fmtDate(v) {
+function fmtDate(v){
 v=v.replace(/[^0-9]/g,’’);
 if(v.length>2) v=v.slice(0,2)+’/’+v.slice(2);
 if(v.length>5) v=v.slice(0,5)+’/’+v.slice(5,9);
 return v;
 }
-function isValidDate(d) { return /^\d{2}/\d{2}/\d{4}$/.test(d); }
+function isValidDate(d){return /^\d{2}/\d{2}/\d{4}$/.test(d);}
+function esc(s){return String(s).replace(/&/g,’&’).replace(/</g,’<’).replace(/>/g,’>’);}
 
-function useToast() {
-const [t,setT]=useState(null); const tmr=useRef();
-const show=useCallback(msg=>{
-clearTimeout(tmr.current); setT({msg,phase:‘in’});
-tmr.current=setTimeout(()=>setT(x=>x?{…x,phase:‘out’}:null),2000);
-setTimeout(()=>setT(null),2300);
+// ── useToast ──
+function useToast(){
+var state=React.useState(null), toast=state[0], setToast=state[1];
+var tmr=React.useRef();
+var show=React.useCallback(function(msg){
+clearTimeout(tmr.current);
+setToast({msg:msg,phase:‘in’});
+tmr.current=setTimeout(function(){setToast(function(t){return t?{msg:t.msg,phase:‘out’}:null;});},2000);
+setTimeout(function(){setToast(null);},2300);
 },[]);
-return [t,show];
+return [toast,show];
 }
 
-function Confirm({title,msg,confirmLabel=‘Delete’,confirmCls=‘br’,onConfirm,onCancel}) {
-return (
-<div className="cov" onClick={onCancel}>
-<div className=“cbox” onClick={e=>e.stopPropagation()}>
-<div className="ctitle">{title}</div>
-<div className="cmsg">{msg}</div>
-<div className="cbtns">
-<button className="btn bb" onClick={onCancel}>Cancel</button>
-<button className={`btn ${confirmCls}`} onClick={onConfirm}>{confirmLabel}</button>
-</div>
-</div>
-</div>
+// ── Confirm ──
+function Confirm(props){
+return h(‘div’,{className:‘cov’,onClick:props.onCancel},
+h(‘div’,{className:‘cbox’,onClick:function(e){e.stopPropagation();}},
+h(‘div’,{className:‘ctitle’},props.title),
+h(‘div’,{className:‘cmsg’},props.msg),
+h(‘div’,{className:‘cbtns’},
+h(‘button’,{className:‘btn bb’,onClick:props.onCancel},‘Cancel’),
+h(‘button’,{className:’btn ’+(props.confirmCls||‘br’),onClick:props.onConfirm},props.confirmLabel||‘Delete’)
+)
+)
 );
 }
 
-function HistoryModal({db,item,onClose}) {
-const hist=useMemo(()=>
-db.filter(d=>d.model.toLowerCase()===item.model.toLowerCase()&&d.supplier===item.supplier)
-.sort((a,b)=>{
-const [ad,am,ay]=a.date.split(’/’); const [bd,bm,by]=b.date.split(’/’);
-return new Date(`${ay}-${am}-${ad}`)-new Date(`${by}-${bm}-${bd}`);
+// ── HistoryModal ──
+function HistoryModal(props){
+var db=props.db, item=props.item;
+var hist=db.filter(function(d){
+return d.model.toLowerCase()===item.model.toLowerCase()&&d.supplier===item.supplier;
+}).sort(function(a,b){
+var ad=a.date.split(’/’),bd=b.date.split(’/’);
+return new Date(ad[2]+’-’+ad[1]+’-’+ad[0])-new Date(bd[2]+’-’+bd[1]+’-’+bd[0]);
+});
+return h(‘div’,{className:‘mo’,onClick:props.onClose},
+h(‘div’,{className:‘md’,onClick:function(e){e.stopPropagation();}},
+h(‘div’,{className:‘mhandle’}),
+h(‘div’,{className:‘mtitle’},‘Price History’),
+h(‘div’,{className:‘msub’},item.model+’ · ‘+item.supplier),
+h(‘div’,{className:‘hl’},hist.map(function(entry,i){
+var prev=hist[i-1];
+var diff=prev?parseFloat(entry.price)-parseFloat(prev.price):null;
+var cls=diff===null?’’:diff>0?‘du’:diff<0?‘dd’:‘ds’;
+var arrow=diff===null?’’:diff>0?‘▲’:diff<0?‘▼’:‘─’;
+var diffTxt=diff!==null?(diff!==0?‘₹’+Math.abs(diff).toFixed(1):‘no change’):’’;
+return h(‘div’,{key:entry.id,className:‘hi’},
+h(‘div’,null,
+h(‘div’,{style:{fontWeight:600,fontSize:13}},entry.date),
+diff!==null?h(‘div’,{className:’hdiff ‘+cls},arrow+’ ’+diffTxt):null
+),
+h(‘div’,{className:‘hprice’},‘₹’+entry.price)
+);
+})),
+h(‘button’,{className:‘btn bb’,style:{marginTop:16},onClick:props.onClose},‘Close’)
+)
+);
+}
+
+// ── CompareModal ──
+function CompareModal(props){
+var db=props.db, selectedIds=props.selectedIds;
+var sel=db.filter(function(d){return selectedIds[d.id];});
+var groups={};
+sel.forEach(function(d){if(!groups[d.model])groups[d.model]=[];groups[d.model].push(d);});
+return h(‘div’,{className:‘mo’,onClick:props.onClose},
+h(‘div’,{className:‘md’,onClick:function(e){e.stopPropagation();}},
+h(‘div’,{className:‘mhandle’}),
+h(‘div’,{className:‘mtitle’},‘Price Comparison’),
+Object.keys(groups).map(function(model){
+var entries=groups[model];
+var prices=entries.map(function(e){return parseFloat(e.price);}).filter(function(p){return !isNaN(p);});
+var minP=Math.min.apply(null,prices);
+return h(‘div’,{key:model,className:‘cg’},
+h(‘div’,{className:‘cgt’},model),
+entries.slice().sort(function(a,b){return parseFloat(a.price)-parseFloat(b.price);}).map(function(e){
+var best=parseFloat(e.price)===minP;
+return h(‘div’,{key:e.id,className:‘crow’+(best?’ best’:’’)},
+h(‘div’,null,
+h(‘div’,{className:‘crow-sup’},e.supplier),
+h(‘div’,{style:{fontSize:11,color:‘var(–muted)’}},e.date)
+),
+h(‘div’,{style:{display:‘flex’,alignItems:‘center’,gap:8}},
+best?h(‘span’,{className:‘btag’},‘BEST’):null,
+h(‘span’,{className:‘crow-price’},‘₹’+e.price)
+)
+);
 })
-,[db,item]);
-return (
-<div className="mo" onClick={onClose}>
-<div className=“md” onClick={e=>e.stopPropagation()}>
-<div className="mhandle"/>
-<div className="mtitle">Price History</div>
-<div className="msub">{item.model} · {item.supplier}</div>
-<div className="hl">
-{hist.map((h,i)=>{
-const prev=hist[i-1];
-const diff=prev?parseFloat(h.price)-parseFloat(prev.price):null;
-return (
-<div key={h.id} className="hi">
-<div>
-<div style={{fontWeight:600,fontSize:13}}>{h.date}</div>
-{diff!==null&&<div className={`hdiff ${diff>0?'du':diff<0?'dd':'ds'}`}>{diff>0?‘▲’:diff<0?‘▼’:‘─’} {diff!==0?`₹${Math.abs(diff).toFixed(1)}`:‘no change’}</div>}
-</div>
-<div className="hprice">₹{h.price}</div>
-</div>
 );
-})}
-</div>
-<button className="btn bb" style={{marginTop:16}} onClick={onClose}>Close</button>
-</div>
-</div>
+}),
+h(‘button’,{className:‘btn bb’,style:{marginTop:8},onClick:props.onClose},‘Close’)
+)
 );
 }
 
-function CompareModal({db,selectedIds,onClose}) {
-const groups=useMemo(()=>{
-const sel=db.filter(d=>selectedIds.has(d.id)), g={};
-sel.forEach(d=>{ if(!g[d.model]) g[d.model]=[]; g[d.model].push(d); });
-return g;
-},[db,selectedIds]);
-return (
-<div className="mo" onClick={onClose}>
-<div className=“md” onClick={e=>e.stopPropagation()}>
-<div className="mhandle"/>
-<div className="mtitle">Price Comparison</div>
-{Object.entries(groups).map(([model,entries])=>{
-const prices=entries.map(e=>parseFloat(e.price)).filter(p=>!isNaN(p));
-const min=Math.min(…prices);
-return (
-<div key={model} className="cg">
-<div className="cgt">{model}</div>
-{[…entries].sort((a,b)=>parseFloat(a.price)-parseFloat(b.price)).map(e=>{
-const best=parseFloat(e.price)===min;
-return (
-<div key={e.id} className={`crow${best?' best':''}`}>
-<div>
-<div className="crow-sup">{e.supplier}</div>
-<div style={{fontSize:11,color:‘var(–muted)’}}>{e.date}</div>
-</div>
-<div style={{display:‘flex’,alignItems:‘center’,gap:8}}>
-{best&&<span className="btag">BEST</span>}
-<span className="crow-price">₹{e.price}</span>
-</div>
-</div>
-);
-})}
-</div>
-);
-})}
-<button className="btn bb" style={{marginTop:4}} onClick={onClose}>Close</button>
-</div>
-</div>
+// ── EditModal ──
+function EditModal(props){
+var item=props.item;
+var ms=React.useState(item.model), model=ms[0], setModel=ms[1];
+var ps=React.useState(item.price), price=ps[0], setPrice=ps[1];
+var ss=React.useState(item.supplier), supplier=ss[0], setSupplier=ss[1];
+var ts=React.useState(item.type), type=ts[0], setType=ts[1];
+return h(‘div’,{className:‘mo’,onClick:props.onClose},
+h(‘div’,{className:‘md’,onClick:function(e){e.stopPropagation();}},
+h(‘div’,{className:‘mhandle’}),
+h(‘div’,{className:‘mtitle’},‘Edit Entry’),
+h(‘div’,{className:‘ef’},h(‘div’,{className:‘el’},‘Model’),h(‘input’,{className:‘ei2’,value:model,onChange:function(e){setModel(e.target.value);}})),
+h(‘div’,{className:‘ef’},h(‘div’,{className:‘el’},‘Price’),h(‘input’,{className:‘ei2’,value:price,inputMode:‘decimal’,onChange:function(e){setPrice(e.target.value);}})),
+h(‘div’,{className:‘ef’},h(‘div’,{className:‘el’},‘Supplier’),h(‘input’,{className:‘ei2’,value:supplier,onChange:function(e){setSupplier(e.target.value);}})),
+h(‘div’,{className:‘ef’},h(‘div’,{className:‘el’},‘Type’),
+h(‘select’,{className:‘ei2’,value:type,onChange:function(e){setType(e.target.value);}},
+[‘INCELL’,‘OLED’,‘GX’,‘OG’,‘AAA’,‘TFT’].map(function(t){return h(‘option’,{key:t,value:t},t);})
+)
+),
+h(‘div’,{className:‘brow’,style:{marginTop:4}},
+h(‘button’,{className:‘btn bb’,onClick:props.onClose},‘Cancel’),
+h(‘button’,{className:‘btn bp’,onClick:function(){props.onSave(Object.assign({},item,{model:model,price:price,supplier:supplier,type:type}));}},‘Save’)
+)
+)
 );
 }
 
-function EditModal({item,onSave,onClose}) {
-const [model,setModel]=useState(item.model);
-const [price,setPrice]=useState(item.price);
-const [supplier,setSupplier]=useState(item.supplier);
-const [type,setType]=useState(item.type);
-return (
-<div className="mo" onClick={onClose}>
-<div className=“md” onClick={e=>e.stopPropagation()}>
-<div className="mhandle"/>
-<div className="mtitle">Edit Entry</div>
-{[[‘Model’,model,setModel,‘text’],[‘Price’,price,setPrice,‘decimal’],[‘Supplier’,supplier,setSupplier,‘text’]].map(([lbl,val,set,mode])=>(
-<div key={lbl} className="ef">
-<div className="el">{lbl}</div>
-<input className=“ei2” value={val} onChange={e=>set(e.target.value)} inputMode={mode}/>
-</div>
-))}
-<div className="ef">
-<div className="el">Type</div>
-<select className=“ei2” value={type} onChange={e=>setType(e.target.value)}>
-{[‘INCELL’,‘OLED’,‘GX’,‘OG’,‘AAA’,‘TFT’].map(t=><option key={t}>{t}</option>)}
-</select>
-</div>
-<div className="brow" style={{marginTop:4}}>
-<button className="btn bb" onClick={onClose}>Cancel</button>
-<button className=“btn bp” onClick={()=>onSave({…item,model,price,supplier,type})}>Save</button>
-</div>
-</div>
-</div>
+// ── Card ──
+function Card(props){
+var item=props.item, db=props.db;
+var col=TYPE_COLORS[item.type]||’#64748b’;
+var hcnt=db.filter(function(d){return d.model.toLowerCase()===item.model.toLowerCase()&&d.supplier===item.supplier;}).length;
+var cls=‘card’+(props.isSel?’ sel’:’’);
+return h(‘div’,{className:cls,onClick:props.cmpMode?function(){props.onSel(item);}:undefined},
+h(‘div’,{className:‘cl’},
+item.brand&&item.brand!==’-’?h(‘div’,{className:‘cbrand’},item.brand):null,
+h(‘div’,{className:‘cmodel’},item.model),
+h(‘div’,{className:‘cmr’},
+h(‘span’,{className:‘badge’,style:{background:col}},item.type),
+h(‘span’,{className:‘csup’},item.supplier),
+h(‘span’,{className:‘cdate’},item.date)
+),
+!props.cmpMode?h(‘div’,{className:‘cacts’},
+hcnt>1?h(‘button’,{className:‘cab ch’,onClick:function(e){e.stopPropagation();props.onHist(item);}},‘History (’+hcnt+’)’):null,
+h(‘button’,{className:‘cab ce’,onClick:function(e){e.stopPropagation();props.onEdit(item);}},‘Edit’),
+h(‘button’,{className:‘cab cd’,onClick:function(e){e.stopPropagation();props.onDel(item);}},‘Delete’)
+):null
+),
+h(‘div’,{className:‘cr’},
+h(‘div’,{className:‘cprice’},‘₹’+item.price),
+props.cmpMode?h(‘div’,{style:{fontSize:11,color:‘var(–muted)’,marginTop:4}},props.isSel?‘✓ sel’:‘tap’):null
+)
 );
 }
 
-function Card({item,db,cmpMode,isSel,onSel,onEdit,onDel,onHist}) {
-const col=TYPE_COLORS[item.type]||’#64748b’;
-const hcnt=db.filter(d=>d.model.toLowerCase()===item.model.toLowerCase()&&d.supplier===item.supplier).length;
-return (
-<div className=“card” onClick={cmpMode?()=>onSel(item):undefined}
-style={cmpMode&&isSel?{background:‘rgba(79,124,255,.08)’,borderLeft:‘3px solid var(–accent)’}:{}}>
-<div className="cl">
-{item.brand&&item.brand!==’-’&&<div className="cbrand">{item.brand}</div>}
-<div className="cmodel">{item.model}</div>
-<div className="cmr">
-<span className="badge" style={{background:col}}>{item.type}</span>
-<span className="csup">{item.supplier}</span>
-<span className="cdate">{item.date}</span>
-</div>
-{!cmpMode&&(
-<div className="cacts">
-{hcnt>1&&<button className=“cab ch” onClick={()=>onHist(item)}>History ({hcnt})</button>}
-<button className=“cab ce” onClick={()=>onEdit(item)}>Edit</button>
-<button className=“cab cd” onClick={()=>onDel(item)}>Delete</button>
-</div>
-)}
-</div>
-<div className="cr">
-<div className="cprice">₹{item.price}</div>
-{cmpMode&&<div style={{fontSize:11,color:‘var(–muted)’,marginTop:4}}>{isSel?‘✓ sel’:‘tap’}</div>}
-</div>
-</div>
-);
-}
+// ── AddPanel ──
+function AddPanel(props){
+var db=props.db, setDb=props.setDb, showToast=props.showToast;
+var ss=React.useState(’’), supplier=ss[0], setSupplier=ss[1];
+var ds=React.useState(’’), date=ds[0], setDate=ds[1];
+var rs=React.useState(’’), raw=rs[0], setRaw=rs[1];
+var dus=React.useState([]), dups=dus[0], setDups=dus[1];
+var fileRef=React.useRef();
 
-function AddPanel({db,setDb,showToast}) {
-const [supplier,setSupplier]=useState(’’);
-const [date,setDate]=useState(’’);
-const [raw,setRaw]=useState(’’);
-const [dups,setDups]=useState([]);
-const fileRef=useRef();
-
-const chkDups=(t,s,d)=>{
+function chkDups(t,s,d){
 if(!t||!s||!isValidDate(d)){setDups([]);return;}
-const items=parseList(t,s,d);
-setDups(items.filter(i=>db.some(x=>x.model.toLowerCase()===i.model.toLowerCase()&&x.supplier===i.supplier&&x.date===i.date)));
-};
+var items=parseList(t,s,d);
+setDups(items.filter(function(i){
+return db.some(function(x){return x.model.toLowerCase()===i.model.toLowerCase()&&x.supplier===i.supplier&&x.date===i.date;});
+}));
+}
 
-const doAdd=()=>{
+function doAdd(){
 if(!raw.trim()){showToast(‘Paste a price list first’);return;}
 if(!isValidDate(date)){showToast(‘Enter date as DD/MM/YYYY’);return;}
-const items=parseList(raw,supplier||’-’,date);
+var items=parseList(raw,supplier||’-’,date);
 if(!items.length){showToast(‘No items found — check format’);return;}
-const next=[…db,…items];
+var next=db.concat(items);
 if(!saveDB(next)){showToast(‘Storage full!’);return;}
 setDb(next); setRaw(’’); setDups([]);
-showToast(`✓ Added ${items.length} items`);
-};
+showToast(‘✓ Added ‘+items.length+’ items’);
+}
 
-const doExport=()=>{
+function doExport(){
 if(!db.length){showToast(‘No data to export’);return;}
-const now=new Date(), pad=n=>n<10?‘0’+n:n;
-const name=`spare-${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}.json`;
-const blob=new Blob([JSON.stringify({version:2,exported:now.toISOString(),count:db.length,data:db},null,2)],{type:‘application/json’});
-const url=URL.createObjectURL(blob), a=document.createElement(‘a’);
+var now=new Date(), pad=function(n){return n<10?‘0’+n:n;};
+var name=‘spare-’+now.getFullYear()+pad(now.getMonth()+1)+pad(now.getDate())+’.json’;
+var blob=new Blob([JSON.stringify({version:2,exported:now.toISOString(),count:db.length,data:db},null,2)],{type:‘application/json’});
+var url=URL.createObjectURL(blob), a=document.createElement(‘a’);
 a.href=url; a.download=name; document.body.appendChild(a); a.click();
-setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url);},1000);
-showToast(`✓ Exported ${db.length} items`);
-};
+setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);},1000);
+showToast(‘✓ Exported ‘+db.length+’ items’);
+}
 
-const doImport=e=>{
-const file=e.target.files[0]; if(!file) return;
-const reader=new FileReader();
-reader.onload=ev=>{
-try {
-const p=JSON.parse(ev.target.result);
-const inc=p.data||p;
+function doImport(e){
+var file=e.target.files[0]; if(!file) return;
+var reader=new FileReader();
+reader.onload=function(ev){
+try{
+var p=JSON.parse(ev.target.result);
+var inc=p.data||p;
 if(!Array.isArray(inc)) throw 0;
-const valid=inc.filter(r=>r&&typeof r.model===‘string’&&typeof r.price===‘string’);
+var valid=inc.filter(function(r){return r&&typeof r.model===‘string’&&typeof r.price===‘string’;});
 if(!valid.length){showToast(‘No valid items’);return;}
-const merge=db.length===0||window.confirm(`Import ${valid.length} items?\nOK=Merge  Cancel=Replace`);
-const next=[…(merge&&db.length?db:[]),…valid.map(v=>({…v,id:v.id||Date.now()+Math.random()}))];
+var merge=db.length===0||window.confirm(‘Import ‘+valid.length+’ items?\nOK=Merge  Cancel=Replace’);
+var base=merge&&db.length?db:[];
+var next=base.concat(valid.map(function(v){return Object.assign({},v,{id:v.id||Date.now()+Math.random()});}));
 if(!saveDB(next)){showToast(‘Storage full!’);return;}
-setDb(next); showToast(`✓ Imported ${valid.length} items`);
-} catch{showToast(‘Invalid file’);}
+setDb(next); showToast(‘✓ Imported ‘+valid.length+’ items’);
+}catch(err){showToast(‘Invalid file’);}
 e.target.value=’’;
 };
 reader.readAsText(file);
-};
+}
 
-const doClear=()=>{
+function doClear(){
 if(!window.confirm(‘Delete ALL data?\nThis cannot be undone.’)) return;
 localStorage.removeItem(‘spareDB2’); setDb([]);
 showToast(‘All data cleared’);
-};
+}
 
-return (
-<div className="add-scroll">
-<div className="fg">
-<div className="fl">Supplier</div>
-<input className=“fi” placeholder=“e.g. KLP Delhi” value={supplier}
-onChange={e=>{setSupplier(e.target.value);chkDups(raw,e.target.value,date);}} autoComplete=“off”/>
-</div>
-<div className="fg">
-<div className="fl">Date</div>
-<input className=“fi” placeholder=“DD/MM/YYYY” maxLength={10} inputMode=“numeric”
-value={date} onChange={e=>{const v=fmtDate(e.target.value);setDate(v);chkDups(raw,supplier,v);}}/>
-</div>
-<div className="fg">
-<div className="fl">WhatsApp Price List</div>
-<textarea className=“fi” placeholder=“Paste full price list here…” value={raw}
-onChange={e=>{setRaw(e.target.value);chkDups(e.target.value,supplier,date);}}/>
-</div>
-{dups.length>0&&(
-<div className="dup">
-<span>⚠️</span>
-<span>{dups.length} duplicate{dups.length>1?‘s’:’’} — {dups.slice(0,2).map(d=>d.model).join(’, ‘)}{dups.length>2?’ …’:’’} already exist for this supplier & date.</span>
-</div>
-)}
-<button className="btn bp" onClick={doAdd}>Add & Save</button>
-<div className="brow">
-<button className="btn bg" onClick={doExport}>⬆ Export</button>
-<button className=“btn bb” onClick={()=>fileRef.current.click()}>⬇ Import</button>
-</div>
-<input ref={fileRef} type=“file” accept=”.json” style={{display:‘none’}} onChange={doImport}/>
-<button className="btn br" onClick={doClear}>Clear All Data</button>
-</div>
+return h(‘div’,{className:‘add-scroll’},
+h(‘div’,{className:‘fg’},
+h(‘div’,{className:‘fl’},‘Supplier’),
+h(‘input’,{className:‘fi’,placeholder:‘e.g. KLP Delhi’,value:supplier,autoComplete:‘off’,
+onChange:function(e){setSupplier(e.target.value);chkDups(raw,e.target.value,date);}})
+),
+h(‘div’,{className:‘fg’},
+h(‘div’,{className:‘fl’},‘Date’),
+h(‘input’,{className:‘fi’,placeholder:‘DD/MM/YYYY’,maxLength:10,inputMode:‘numeric’,value:date,
+onChange:function(e){var v=fmtDate(e.target.value);setDate(v);chkDups(raw,supplier,v);}})
+),
+h(‘div’,{className:‘fg’},
+h(‘div’,{className:‘fl’},‘WhatsApp Price List’),
+h(‘textarea’,{className:‘fi’,placeholder:‘Paste full price list here…’,value:raw,
+onChange:function(e){setRaw(e.target.value);chkDups(e.target.value,supplier,date);}})
+),
+dups.length>0?h(‘div’,{className:‘dup’},
+h(‘span’,null,‘⚠️’),
+h(‘span’,null,dups.length+’ duplicate’+(dups.length>1?‘s’:’’)+’ — ‘+dups.slice(0,2).map(function(d){return d.model;}).join(’, ‘)+(dups.length>2?’ …’:’’)+’ already exist for this supplier & date.’)
+):null,
+h(‘button’,{className:‘btn bp’,onClick:doAdd},‘Add & Save’),
+h(‘div’,{className:‘brow’},
+h(‘button’,{className:‘btn bg2’,onClick:doExport},‘⬆ Export’),
+h(‘button’,{className:‘btn bb’,onClick:function(){fileRef.current.click();}},‘⬇ Import’)
+),
+h(‘input’,{ref:fileRef,type:‘file’,accept:’.json’,style:{display:‘none’},onChange:doImport}),
+h(‘button’,{className:‘btn br’,onClick:doClear},‘Clear All Data’)
 );
 }
 
-function SearchPanel({db,setDb,showToast}) {
-const [q,setQ]=useState(’’);
-const [tf,setTf]=useState(‘ALL’);
-const [sort,setSort]=useState(‘default’);
-const [cmpMode,setCmpMode]=useState(false);
-const [sel,setSel]=useState(new Set());
-const [modal,setModal]=useState(null);
-const [confirm,setConfirm]=useState(null);
+// ── SearchPanel ──
+function SearchPanel(props){
+var db=props.db, setDb=props.setDb, showToast=props.showToast;
+var qs=React.useState(’’), q=qs[0], setQ=qs[1];
+var tfs=React.useState(‘ALL’), tf=tfs[0], setTf=tfs[1];
+var srt=React.useState(‘default’), sort=srt[0], setSort=srt[1];
+var cms=React.useState(false), cmpMode=cms[0], setCmpMode=cms[1];
+var sels=React.useState({}), sel=sels[0], setSel=sels[1];
+var mods=React.useState(null), modal=mods[0], setModal=mods[1];
+var confs=React.useState(null), confirm=confs[0], setConfirm=confs[1];
 
-const list=useMemo(()=>{
-let arr=db;
-const qq=q.toLowerCase().trim();
-if(qq) arr=arr.filter(d=>d.model.toLowerCase().includes(qq)||d.brand.toLowerCase().includes(qq)||d.type.toLowerCase().includes(qq)||d.supplier.toLowerCase().includes(qq));
-if(tf!==‘ALL’) arr=arr.filter(d=>d.type===tf);
-if(sort===‘price-asc’)  arr=[…arr].sort((a,b)=>parseFloat(a.price)-parseFloat(b.price));
-if(sort===‘price-desc’) arr=[…arr].sort((a,b)=>parseFloat(b.price)-parseFloat(a.price));
-if(sort===‘date-desc’)  arr=[…arr].sort((a,b)=>{const[ad,am,ay]=a.date.split(’/’);const[bd,bm,by]=b.date.split(’/’);return new Date(`${by}-${bm}-${bd}`)-new Date(`${ay}-${am}-${ad}`);});
-if(sort===‘model-asc’)  arr=[…arr].sort((a,b)=>a.model.localeCompare(b.model));
+var selCount=Object.keys(sel).filter(function(k){return sel[k];}).length;
+
+var list=React.useMemo(function(){
+var arr=db;
+var qq=q.toLowerCase().trim();
+if(qq) arr=arr.filter(function(d){
+return d.model.toLowerCase().indexOf(qq)>-1||d.brand.toLowerCase().indexOf(qq)>-1||
+d.type.toLowerCase().indexOf(qq)>-1||d.supplier.toLowerCase().indexOf(qq)>-1;
+});
+if(tf!==‘ALL’) arr=arr.filter(function(d){return d.type===tf;});
+if(sort===‘price-asc’)  arr=arr.slice().sort(function(a,b){return parseFloat(a.price)-parseFloat(b.price);});
+if(sort===‘price-desc’) arr=arr.slice().sort(function(a,b){return parseFloat(b.price)-parseFloat(a.price);});
+if(sort===‘date-desc’)  arr=arr.slice().sort(function(a,b){
+var ad=a.date.split(’/’),bd=b.date.split(’/’);
+return new Date(bd[2]+’-’+bd[1]+’-’+bd[0])-new Date(ad[2]+’-’+ad[1]+’-’+ad[0]);
+});
+if(sort===‘model-asc’)  arr=arr.slice().sort(function(a,b){return a.model.localeCompare(b.model);});
 return arr;
 },[db,q,tf,sort]);
 
-const toggleSel=item=>setSel(prev=>{const n=new Set(prev);n.has(item.id)?n.delete(item.id):n.add(item.id);return n;});
-
-const onDel=item=>setConfirm({
-title:‘Delete Entry’,msg:`Delete "${item.model}" from ${item.supplier}?`,
-onConfirm:()=>{const n=db.filter(d=>d.id!==item.id);saveDB(n);setDb(n);setConfirm(null);showToast(‘Deleted’);}
+function toggleSel(item){
+setSel(function(prev){
+var n=Object.assign({},prev);
+n[item.id]?delete n[item.id]:n[item.id]=true;
+return n;
 });
+}
 
-const saveEdit=updated=>{
-const n=db.map(d=>d.id===updated.id?updated:d);
+function onDel(item){
+setConfirm({
+title:‘Delete Entry’,
+msg:‘Delete “’+item.model+’” from ‘+item.supplier+’?’,
+onConfirm:function(){
+var n=db.filter(function(d){return d.id!==item.id;});
+saveDB(n); setDb(n); setConfirm(null); showToast(‘Deleted’);
+}
+});
+}
+
+function saveEdit(updated){
+var n=db.map(function(d){return d.id===updated.id?updated:d;});
 saveDB(n); setDb(n); setModal(null); showToast(‘✓ Saved’);
-};
+}
 
-const chipStyle=(t)=>{
+function chipStyle(t){
 if(tf!==t) return {};
 if(t===‘ALL’) return {background:‘var(–accent)’,borderColor:‘var(–accent)’,color:’#fff’};
 return {background:TYPE_COLORS[t],color:’#fff’,borderColor:‘transparent’};
-};
+}
 
-return (
-<>
-<div className="sh">
-<div className="sbox">
-<span style={{color:‘var(–muted)’,fontSize:16}}>⌕</span>
-<input placeholder=“Model, brand, supplier…” value={q}
-onChange={e=>setQ(e.target.value)} autoComplete=“off” autoCorrect=“off” spellCheck={false}/>
-{q&&<span style={{color:‘var(–muted)’,cursor:‘pointer’,fontSize:18,lineHeight:1}} onClick={()=>setQ(’’)}>✕</span>}
-</div>
-<div className="fbar">
-{TYPES.map(t=>(
-<div key={t} className={`chip${tf===t?' on':''}`} style={chipStyle(t)} onClick={()=>setTf(t)}>{t}</div>
-))}
-</div>
-</div>
-<div className="smeta">
-<span className="scount">{list.length} result{list.length!==1?‘s’:’’}</span>
-<div style={{display:‘flex’,gap:8,alignItems:‘center’}}>
-<button className={`cbtn${cmpMode?' on':''}`}
-onClick={()=>{setCmpMode(c=>!c);setSel(new Set());}}>
-{cmpMode?`✓ Comparing (${sel.size})`:‘Compare’}
-</button>
-<select className=“ssel” value={sort} onChange={e=>setSort(e.target.value)}>
-<option value="default">Default</option>
-<option value="price-asc">Price ↑</option>
-<option value="price-desc">Price ↓</option>
-<option value="date-desc">Newest</option>
-<option value="model-asc">A–Z</option>
-</select>
-</div>
-</div>
-<div className="lw">
-{db.length===0?(
-<div className="empty"><div className="ei">📋</div><div className="et">No data yet</div><div className="es">Go to Add tab and paste<br/>a price list to get started.</div></div>
-):list.length===0?(
-<div className="empty"><div className="ei">📦</div><div className="et">No results</div><div className="es">Try a different search<br/>or change the filter.</div></div>
-):list.map(item=>(
-<Card key={item.id} item={item} db={db}
-cmpMode={cmpMode} isSel={sel.has(item.id)}
-onSel={toggleSel} onEdit={i=>setModal({type:‘edit’,item:i})}
-onDel={onDel} onHist={i=>setModal({type:‘hist’,item:i})}/>
-))}
-</div>
-{cmpMode&&sel.size>=2&&(
-<div className="cmpbar">
-<div className="cmpbar-t"><span>{sel.size}</span> selected</div>
-<button className=“cmpbar-b” onClick={()=>setModal({type:‘cmp’})}>Compare Now</button>
-</div>
-)}
-{modal?.type===‘hist’&&<HistoryModal db={db} item={modal.item} onClose={()=>setModal(null)}/>}
-{modal?.type===‘cmp’&&<CompareModal db={db} selectedIds={sel} onClose={()=>{setModal(null);setCmpMode(false);setSel(new Set());}}/>}
-{modal?.type===‘edit’&&<EditModal item={modal.item} onSave={saveEdit} onClose={()=>setModal(null)}/>}
-{confirm&&<Confirm {…confirm} onCancel={()=>setConfirm(null)}/>}
-</>
+return h(‘div’,{style:{display:‘flex’,flexDirection:‘column’,flex:1,overflow:‘hidden’}},
+h(‘div’,{className:‘sh’},
+h(‘div’,{className:‘sbox’},
+h(‘span’,{style:{color:‘var(–muted)’,fontSize:16}},‘⌕’),
+h(‘input’,{placeholder:‘Model, brand, supplier…’,value:q,autoComplete:‘off’,autoCorrect:‘off’,spellCheck:false,
+onChange:function(e){setQ(e.target.value);}}),
+q?h(‘span’,{style:{color:‘var(–muted)’,cursor:‘pointer’,fontSize:18,lineHeight:1},onClick:function(){setQ(’’);}},‘✕’):null
+),
+h(‘div’,{className:‘fbar’},
+TYPES.map(function(t){
+return h(‘div’,{key:t,className:‘chip’+(tf===t?’ on’:’’),style:chipStyle(t),onClick:function(){setTf(t);}},t);
+})
+)
+),
+h(‘div’,{className:‘smeta’},
+h(‘span’,{className:‘scount’},list.length+’ result’+(list.length!==1?‘s’:’’)),
+h(‘div’,{style:{display:‘flex’,gap:8,alignItems:‘center’}},
+h(‘button’,{className:‘cbtn’+(cmpMode?’ on’:’’),
+onClick:function(){setCmpMode(function(c){return !c;});setSel({});}},
+cmpMode?‘✓ Comparing (’+selCount+’)’:‘Compare’
+),
+h(‘select’,{className:‘ssel’,value:sort,onChange:function(e){setSort(e.target.value);}},
+h(‘option’,{value:‘default’},‘Default’),
+h(‘option’,{value:‘price-asc’},‘Price ↑’),
+h(‘option’,{value:‘price-desc’},‘Price ↓’),
+h(‘option’,{value:‘date-desc’},‘Newest’),
+h(‘option’,{value:‘model-asc’},‘A–Z’)
+)
+)
+),
+h(‘div’,{className:‘lw’},
+db.length===0?h(‘div’,{className:‘empty’},h(‘div’,{className:‘ei’},‘📋’),h(‘div’,{className:‘et’},‘No data yet’),h(‘div’,{className:‘es’},‘Go to Add tab and paste a price list.’)):
+list.length===0?h(‘div’,{className:‘empty’},h(‘div’,{className:‘ei’},‘📦’),h(‘div’,{className:‘et’},‘No results’),h(‘div’,{className:‘es’},‘Try a different search or filter.’)):
+list.map(function(item){
+return h(Card,{key:item.id,item:item,db:db,
+cmpMode:cmpMode,isSel:!!sel[item.id],
+onSel:toggleSel,
+onEdit:function(i){setModal({type:‘edit’,item:i});},
+onDel:onDel,
+onHist:function(i){setModal({type:‘hist’,item:i});}
+});
+})
+),
+cmpMode&&selCount>=2?h(‘div’,{className:‘cmpbar’},
+h(‘div’,{className:‘cmpbar-t’},h(‘span’,null,selCount),’ selected’),
+h(‘button’,{className:‘cmpbar-b’,onClick:function(){setModal({type:‘cmp’});}}, ‘Compare Now’)
+):null,
+modal&&modal.type===‘hist’?h(HistoryModal,{db:db,item:modal.item,onClose:function(){setModal(null);}}):null,
+modal&&modal.type===‘cmp’?h(CompareModal,{db:db,selectedIds:sel,onClose:function(){setModal(null);setCmpMode(false);setSel({});}}):null,
+modal&&modal.type===‘edit’?h(EditModal,{item:modal.item,onSave:saveEdit,onClose:function(){setModal(null);}}):null,
+confirm?h(Confirm,Object.assign({},confirm,{onCancel:function(){setConfirm(null);}})):null
 );
 }
 
-function App() {
-const [db,setDb]=useState(loadDB);
-const [tab,setTab]=useState(‘search’);
-const [toast,showToast]=useToast();
+// ── App ──
+function App(){
+var dbs=React.useState(loadDB), db=dbs[0], setDb=dbs[1];
+var tabs=React.useState(‘search’), tab=tabs[0], setTab=tabs[1];
+var toastState=useToast(), toast=toastState[0], showToast=toastState[1];
 
-useEffect(()=>{
-if(‘serviceWorker’ in navigator) navigator.serviceWorker.register(‘sw.js’).catch(()=>{});
+React.useEffect(function(){
+if(‘serviceWorker’ in navigator) navigator.serviceWorker.register(‘sw.js’).catch(function(){});
 },[]);
 
-return (
-<div className="app">
-<div className="hdr">
-<span className="hdr-logo"><span>SPARE</span>FINDER</span>
-<span className="hdr-pill">{db.length} items</span>
-</div>
-<div className="tabs">
-{[[‘search’,‘⌕ Search’],[‘add’,‘＋ Add’]].map(([id,lbl])=>(
-<button key={id} className={`tab${tab===id?' on':''}`} onClick={()=>setTab(id)}>{lbl}</button>
-))}
-</div>
-<div className={`panel${tab==='add'?' on':''}`}><AddPanel db={db} setDb={setDb} showToast={showToast}/></div>
-<div className={`panel${tab==='search'?' on':''}`}><SearchPanel db={db} setDb={setDb} showToast={showToast}/></div>
-{toast&&<div className={`toast ${toast.phase}`}>{toast.msg}</div>}
-</div>
+return h(‘div’,{className:‘app’},
+h(‘div’,{className:‘hdr’},
+h(‘span’,{className:‘hdr-logo’},h(‘span’,null,‘SPARE’),‘FINDER’),
+h(‘span’,{className:‘hdr-pill’},db.length+’ items’)
+),
+h(‘div’,{className:‘tabs’},
+h(‘button’,{className:‘tab’+(tab===‘search’?’ on’:’’),onClick:function(){setTab(‘search’);}},‘⌕ Search’),
+h(‘button’,{className:‘tab’+(tab===‘add’?’ on’:’’),onClick:function(){setTab(‘add’);}},‘＋ Add’)
+),
+h(‘div’,{className:‘panel’+(tab===‘add’?’ on’:’’)},
+h(AddPanel,{db:db,setDb:setDb,showToast:showToast})
+),
+h(‘div’,{className:‘panel’+(tab===‘search’?’ on’:’’)},
+h(SearchPanel,{db:db,setDb:setDb,showToast:showToast})
+),
+toast?h(‘div’,{className:’toast ’+toast.phase},toast.msg):null
 );
 }
 
-ReactDOM.createRoot(document.getElementById(‘root’)).render(<App/>);
+ReactDOM.createRoot(document.getElementById(‘root’)).render(h(App,null));
 </script>
 
 </body>
